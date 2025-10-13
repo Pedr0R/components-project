@@ -1,0 +1,25 @@
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        @for(col of columns; track col.key) {
+        <th (click)="sortTable(col.key)">
+          {{ col.label }}
+          @if(sortKey === col.key) {
+          {{ sortDirection === "asc" ? "▲" : "▼" }}
+          }
+        </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of displayedData; track $index) {
+      <tr>
+        @for (col of columns; track $index) {
+        <td>{{ row[col.key] }}</td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
