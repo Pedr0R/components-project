@@ -1,5 +1,7 @@
 # ComponentsProject
 
+This is a personal project. The main goals are to improve my skills with Angular 20's new features and start to structure an component lib for future use.
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
 
 ## Development server
