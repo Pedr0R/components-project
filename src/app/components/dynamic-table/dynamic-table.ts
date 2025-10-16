@@ -1,4 +1,10 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { ColumnDef } from './dynamic-table.model';
 
 @Component({
@@ -9,10 +15,15 @@ import { ColumnDef } from './dynamic-table.model';
 export class DynamicTable {
   @Input() columns: ColumnDef[] = [];
   @Input({ required: true }) data: any[] = [];
+  @Input() checkboxEnabled: boolean = false;
+  @Input() framed: boolean = false;
+
+  @Output() selectionChange = new EventEmitter<any[]>();
 
   public displayedData: any[] = [];
   public sortDirection: 'asc' | 'desc' = 'asc';
   public sortKey: string | null = null;
+  public selectedRows = new Set<any>();
 
   ngOnInit() {
     if (this.columns.length === 0) {
@@ -28,7 +39,7 @@ export class DynamicTable {
     }
   }
 
-  sortTable(key: string): void {
+  simpleSortTable(key: string): void {
     const column = this.columns.find((c) => c.key === key);
     if (!column || !column.sortable) {
       return; // Não faz nada se a coluna não for ordenável
@@ -50,5 +61,51 @@ export class DynamicTable {
 
       return 0;
     });
+  }
+
+  toggleSelectRow(row: any): void {
+    if (this.selectedRows.has(row)) {
+      this.selectedRows.delete(row);
+    } else {
+      this.selectedRows.add(row);
+    }
+    this.emitSelection();
+  }
+
+  toggleSelectAll(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
+      this.displayedData.forEach((row) => this.selectedRows.add(row));
+    } else {
+      this.selectedRows.clear();
+    }
+    this.emitSelection();
+  }
+
+  isAllSelected(): boolean {
+    if (this.displayedData.length === 0) return false;
+    return this.displayedData.every((row) => this.selectedRows.has(row));
+  }
+
+  private emitSelection(): void {
+    this.selectionChange.emit(Array.from(this.selectedRows));
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+
+    if (!filterValue) {
+      this.displayedData = [...this.data];
+      return;
+    }
+
+    this.displayedData = this.displayedData.filter((row) => {
+      return this.columns.some((column) => {
+        const cellValue = row[column.key];
+        return cellValue?.toString().toLowerCase().includes(filterValue);
+      });
+    });
+
+    this.sortKey = null;
   }
 }

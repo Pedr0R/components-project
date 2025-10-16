@@ -6,7 +6,7 @@ import { ColumnDef } from '../components/dynamic-table/dynamic-table.model';
 })
 export class TestDataService {
   userColumns: ColumnDef[] = [
-    { key: 'id', label: 'ID', sortable: true },
+    { key: 'id', label: 'ID' },
     { key: 'name', label: 'Nome', sortable: true },
     { key: 'email', label: 'Email', sortable: true },
     { key: 'city', label: 'Cidade', sortable: true },

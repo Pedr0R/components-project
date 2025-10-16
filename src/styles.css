@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+/* Default Color Scheme */
+
+:root {
+  --madder: #a21f33ff;
+  --red-crayola: #ef304eff;
+  --salmon-pink: #ec8b96ff;
+  --alabaster: #e9e6deff;
+  --silver: #a6a4a0;
+  --dim-gray: #626161ff;
+  --eerie-black: #1b1b1bff;
+  --night: #0c0c0dff;
+}

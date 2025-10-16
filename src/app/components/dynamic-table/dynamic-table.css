@@ -1,4 +1,3 @@
-/* src/app/components/dynamic-table/dynamic-table.component.css */
 .table-container {
   font-family: sans-serif;
   width: 100%;
@@ -6,6 +5,7 @@
 
 .table-toolbar {
   margin-bottom: 1rem;
+  text-align: right;
 }
 
 .filter-input {
@@ -19,6 +19,10 @@ table {
   width: 100%;
   border-collapse: collapse;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+thead th:hover {
+  background-color: #838383;
 }
 
 th {
@@ -47,7 +51,7 @@ th.sortable:hover {
 }
 
 tbody tr:hover {
-  background-color: #f1f1f1;
+  background-color: var(--alabaster);
 }
 
 tbody tr.selected {
@@ -55,7 +59,21 @@ tbody tr.selected {
 }
 
 .no-data {
-  text-align: center;
   padding: 20px;
+  text-align: center;
+  font-size: 18px;
   color: #777;
+}
+
+tbody div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.table-container {
+  width: 100%;
+  border: 5px;
+  border-radius: 5px;
+  border-color: var(--night);
 }
